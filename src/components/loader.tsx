@@ -1,4 +1,4 @@
-import ai from "../assets/image.jpeg";
+import ai from "../assets/image.png";
 const LoadingComponent = () => {
   return (
     <>

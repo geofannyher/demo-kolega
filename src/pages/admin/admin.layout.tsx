@@ -6,13 +6,17 @@ const AdminLayout = () => {
   const isAdmin = localStorage.getItem("role");
   const navigate = useNavigate();
   const checkAdmin = () => {
-    if (isAdmin !== "admin" || isAdmin == undefined) {
+    if (isAdmin === "adminkolegahr") {
+      navigate("/adminavatara");
+    } else {
       navigate("/adminlogin");
     }
   };
+
   useEffect(() => {
     checkAdmin();
-  }, []);
+  }, [isAdmin, navigate]);
+
   return (
     <div className="flex h-screen overflow-hidden">
       <Sidebar />

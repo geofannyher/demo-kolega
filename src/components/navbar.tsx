@@ -1,30 +1,6 @@
-import { useEffect, useState } from "react";
-import ai from "../assets/image.jpeg";
-import { Form, Select } from "antd";
-import { getSession, saveSession } from "../shared/Session";
+import ai from "../assets/image.png";
 
 const Navbar = () => {
-  const [star, setStar] = useState<string>(() => getSession() || "gpt_article");
-  const { Item } = Form;
-
-  useEffect(() => {
-    const savedStar = getSession();
-    if (savedStar) {
-      setStar(savedStar);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (star) {
-      saveSession(star);
-    }
-  }, [star]);
-
-  const handleStarChange = (value: string) => {
-    setStar(value);
-    location.reload();
-  };
-
   return (
     <div className="bg-mainColor rounded-bl-xl rounded-br-xl  shadow-md">
       <nav className="container mx-auto z-20 w-full">
@@ -32,30 +8,16 @@ const Navbar = () => {
           <div className="grid grid-cols-12">
             <div className="col-span-6  md:col-span-6 lg:col-span-6">
               <div className="flex items-center gap-2">
-                <div className="relative flex">
+                <div className="relative flex p-1 rounded-full bg-white">
                   <img
                     src={ai}
                     className="h-10 w-10 items-center justify-center rounded-full object-cover"
                   />
                 </div>
                 <div className="flex flex-col text-white">
-                  <h1 className="font-semibold">Article Extractor</h1>
+                  <h1 className="font-semibold">Kolegahr</h1>
                 </div>
               </div>
-            </div>
-            <div className="col-span-6 flex justify-end items-center  md:col-span-6 lg:col-span-6">
-              <Item name="model" className="w-full md:w-auto px-2">
-                <Select
-                  defaultValue={star}
-                  size="large"
-                  value={star}
-                  onChange={handleStarChange}
-                  options={[
-                    { value: "gpt_article", label: "Article" },
-                    { value: "gpt_socmed", label: "Socmed" },
-                  ]}
-                />
-              </Item>
             </div>
           </div>
         </div>
