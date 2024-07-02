@@ -8,8 +8,6 @@ const AdminLayout = () => {
   const checkAdmin = () => {
     if (isAdmin === "adminkolegahr") {
       navigate("/adminavatara");
-    } else {
-      navigate("/adminlogin");
     }
   };
 

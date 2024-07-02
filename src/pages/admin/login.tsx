@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AlertDanger, AlertSuccess } from "../../components/notification";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -8,6 +8,13 @@ const LoginAdmin = () => {
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const isAdmin = localStorage.getItem("role");
+
+  useEffect(() => {
+    if (isAdmin === "adminkolegahr") {
+      navigate("/adminavatara");
+    }
+  }, [navigate]);
 
   const handleSubmit = async (event: any) => {
     setLoading(true);
