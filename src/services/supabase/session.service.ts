@@ -2,7 +2,7 @@ import { supabase } from "./connection";
 
 export const getIdSession = async () => {
   try {
-    const data = await supabase.from("user").select("uuid").single();
+    const data = await supabase.from("user").select("uuid_kolegahr").single();
 
     if (data) {
       return data;
@@ -19,7 +19,7 @@ export const changelocalid = async ({ newUserId }: any) => {
     const data = await supabase
       .from("user")
       .update({ localid: newUserId })
-      .eq("uuid", 1);
+      .eq("uuid_kolegahr", 1);
     return data;
   } catch (error: any) {
     return error.message;

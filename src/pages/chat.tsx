@@ -32,7 +32,7 @@ const ChatPage: React.FC = () => {
   const getIdUser = async () => {
     const resses = await getIdSession();
     if (resses?.status == 200) {
-      setId(resses?.data?.uuid);
+      setId(resses?.data?.uuid_kolegahr);
       console.log(resses);
     } else {
       return api.error({ message: "Gagal mendapatkan id user" });
