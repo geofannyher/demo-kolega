@@ -9,9 +9,6 @@ import { getIdSession } from "../services/supabase/session.service";
 import { chatRes } from "../services/api/chat.services";
 import notificationSound from "../assets/notif.mp3";
 import { getSession } from "../shared/Session";
-// import axios from "axios";
-// import { supabase } from "../services/supabase/connection";
-// import { cleanString } from "../utils/cleanString";
 const ChatPage: React.FC = () => {
   const [messages, setMessages] = useState<IMessage[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -77,7 +74,7 @@ const ChatPage: React.FC = () => {
 
     const resNew: any = await chatRes({
       message: messageInput,
-      star: "ai_lapor",
+      star: "sarah_bsa",
       id: idUserSession ? idUserSession : "",
       model: "gpt-4o",
       is_rag: "false",
