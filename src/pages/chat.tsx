@@ -9,6 +9,9 @@ import { getIdSession } from "../services/supabase/session.service";
 import { chatRes } from "../services/api/chat.services";
 import notificationSound from "../assets/notif.mp3";
 import { getSession } from "../shared/Session";
+import axios from "axios";
+import { cleanString } from "../utils/cleanString";
+import { supabase } from "../services/supabase/connection";
 const ChatPage: React.FC = () => {
   const [messages, setMessages] = useState<IMessage[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -33,7 +36,6 @@ const ChatPage: React.FC = () => {
     const resses = await getIdSession();
     if (resses?.status == 200) {
       setId(resses?.data?.uuid_kolegahr);
-      console.log(resses);
     } else {
       return api.error({ message: "Gagal mendapatkan id user" });
     }
@@ -64,6 +66,10 @@ const ChatPage: React.FC = () => {
       return api.error({ message: "Kolom pesan tidak boleh kosong" });
     }
 
+    if (!idUserSession) {
+      return api.error({ message: "Tidak ada id user" });
+    }
+
     setIsLoading(true);
     const userMessage = { text: messageInput, sender: "user" };
 
@@ -75,31 +81,33 @@ const ChatPage: React.FC = () => {
     const resNew: any = await chatRes({
       message: messageInput,
       star: "sarah_bsa",
-      id: idUserSession ? idUserSession : "",
+      id: idUserSession,
       model: "gpt-4o",
       is_rag: "false",
     });
 
-    // const res = await axios.post(import.meta.env.VITE_APP_CHATT + "history", {
-    //   id: idUserSession,
-    //   star: "ai_lapor",
-    // });
+    const res = await axios.post(import.meta.env.VITE_APP_CHATT + "history", {
+      id: idUserSession,
+      star: "sarah_bsa",
+    });
 
-    // const cleanedKonteks = cleanString(res?.data?.data?.history[1]?.content);
+    const cleanedKonteks = cleanString(res?.data?.data?.history[1]?.content);
 
-    // await supabase.from("chats").upsert([
-    //   {
-    //     text: messageInput,
-    //     sender: "user",
-    //     localid: idUserSession,
-    //   },
-    //   {
-    //     text: cleanedKonteks || "AI tidak merespon",
-    //     sender: "ai",
-    //     konteks: cleanedKonteks,
-    //     localid: idUserSession,
-    //   },
-    // ]);
+    await supabase.from("chat_kolegahr").upsert([
+      {
+        idref: 2,
+        text: messageInput,
+        sender: "user",
+        localid: idUserSession,
+      },
+      {
+        idref: 2,
+        text: resNew?.data?.data || "AI tidak merespon",
+        sender: "ai",
+        konteks: cleanedKonteks,
+        localid: idUserSession,
+      },
+    ]);
 
     if (resNew && resNew?.data?.data) {
       setMessages((prevMessages: any) => {

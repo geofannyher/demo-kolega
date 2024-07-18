@@ -123,7 +123,7 @@ const AdminChat = () => {
                 {renderHighlightedText(message.text)}
                 <div className="text-sm font-semibold">
                   <br />
-                  {message?.konteks && message?.konteks}
+                  {message?.konteks}
                 </div>
               </div>
             </div>

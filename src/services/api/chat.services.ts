@@ -19,7 +19,6 @@ export const chatRes = async ({
       temperature: 0,
       id,
       message: message,
-      chat_limit: 0,
       is_rag,
     });
     return response;

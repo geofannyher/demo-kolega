@@ -3,9 +3,9 @@ import { supabase } from "../supabase/connection";
 export const getHistoryChats = async () => {
   try {
     const data = await supabase
-      .from("chats")
+      .from("chat_kolegahr")
       .select("*")
-      .eq("id", 1)
+      .eq("idref", 2)
       .order("created_at", { ascending: true });
     if (data) {
       return data;
