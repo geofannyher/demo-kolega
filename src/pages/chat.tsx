@@ -16,7 +16,7 @@ const ChatPage: React.FC = () => {
   const [messages, setMessages] = useState<IMessage[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [api, context] = notification.useNotification();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [idUserSession, setId] = useState("");
   const session = getSession();
   const scrollToBottom = () => {
